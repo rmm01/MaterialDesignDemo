@@ -3,14 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FB8C00"
+    android:background="#DADADA"
     tools:context="com.yckir.materialdesigndemo.NavigationDrawerFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <ImageView
-        android:layout_marginTop="@dimen/navigation_view_margin_top"
-        android:src ="@drawable/ic_abstract"
-        android:layout_width="@dimen/nav_drawer_width"
-        android:layout_height="140dp"/>
+    <LinearLayout
+        android:id="@+id/nav_header_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FB8C00">
 
+        <ImageView
+            android:layout_width="@dimen/nav_drawer_width"
+            android:layout_height="140dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="@dimen/navigation_view_margin_top"
+            android:src="@drawable/ic_abstract"/>
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/drawer_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nav_header_view">
+    </android.support.v7.widget.RecyclerView>
 </RelativeLayout>
+
+

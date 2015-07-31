@@ -3,6 +3,8 @@ package com.yckir.materialdesigndemo;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +12,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -22,6 +26,8 @@ public class NavigationDrawerFragment extends Fragment {
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private View containerView;
+    private RecyclerView recyclerView;
+    private VivzAdapter adapter;
     //is user aware of drawers existence
     private boolean mUserLearnedDrawer;
     //fragment started for first time or from rotation
@@ -43,9 +49,28 @@ public class NavigationDrawerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        recyclerView=(RecyclerView)layout.findViewById(R.id.drawer_recycler_view);
+
+        adapter = new VivzAdapter(getActivity(),getData());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        return layout;
     }
 
+    public static List<Information> getData(){
+        List<Information> data = new ArrayList<>();
+        int[] icons = {R.drawable.ic_number1,R.drawable.ic_number2,R.drawable.ic_number3,R.drawable.ic_number4};
+        String[] titles = {"One","Two","Three","Four"};
+        for(int i =0;i<titles.length && i<icons.length;i++){
+            Information current=new Information();
+            current.setIconId(icons[i]);
+            current.setTitle(titles[i]);
+            data.add(current);
+        }
+        return data;
+    }
 
     public void setUp(int fragmentId,DrawerLayout drawerLayout,Toolbar toolbar) {
         containerView=getActivity().findViewById(fragmentId);
@@ -81,17 +106,16 @@ public class NavigationDrawerFragment extends Fragment {
         });
 
     }
+
     public void saveToPreferences(Context context, String preferenceName,String preferenceValue){
         SharedPreferences sharedPreferences=context.getSharedPreferences(PREF_FINAL_NAME,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor=sharedPreferences.edit();
         editor.putString(preferenceName,preferenceValue);
         editor.apply();
-
     }
+
     public static String readFromPreferences(Context context, String preferenceName,String preferenceValue){
         SharedPreferences sharedPreferences=context.getSharedPreferences(PREF_FINAL_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getString(preferenceName,preferenceValue);
-
-
     }
 }

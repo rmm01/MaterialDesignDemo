@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.yckir.materialdesigndemo"
-        minSdkVersion 7
+        minSdkVersion 9
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -24,4 +24,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.android.support:support-v4:22.2.0'
     compile 'com.android.support:design:22.2.0'
+    compile 'com.android.support:recyclerview-v7:22.2.0'
+    compile 'org.lucasr.dspec:dspec:0.1.1'
 }
